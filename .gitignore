@@ -1,0 +1,59 @@
+# -------------------------
+# Python
+# -------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual environment
+venv/
+.env/
+.venv/
+env/
+
+# IDE / Editors
+.vscode/
+.idea/
+
+# Byte-compiled / cache
+*.egg-info/
+*.egg
+.eggs/
+.cache/
+pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env.local
+.env.dev
+.env.production
+
+# Build / distribution
+build/
+dist/
+
+# Data files (important!)
+data/raw/*
+data/processed/*
+*.csv
+*.xlsx
+*.parquet
+
+# Allow sample or template data files
+!data/raw/example.csv
+!data/raw/README.md
+
+# CI/CD artifacts
+.coverage
+htmlcov/
