@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  sentiment-analysis:
+    build: .
+    image: nova-sentiment:latest
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./config:/app/config
+      - ./reports:/app/reports
+    environment:
+      - PYTHONUNBUFFERED=1
+    # Keep container running for interactive use if needed, or override CMD
+    # command: ["--task", "prep"]

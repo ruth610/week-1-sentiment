@@ -1,56 +1,109 @@
-# 📈 Predicting Stock Price Movements Using News Sentiment  
-**Nova Financial Solutions**  
+# 📈 Predicting Stock Price Movements Using News Sentiment
+**Nova Financial Solutions**
 
-This project explores how **financial news headlines influence stock market movements** using a combined workflow of **data engineering, sentiment analysis, and quantitative finance techniques**.  
+## 🛠️ Project Setup & Usage
 
-The goal is to build a **reproducible data pipeline** that:  
-1. Extracts patterns from news headlines  
-2. Computes sentiment scores  
-3. Aligns news events with stock price movements  
-4. Computes technical indicators  
-5. Analyzes correlations and predictive relationships  
+### 1. Installation
+This project uses `pyproject.toml` for managing dependencies. To set up your environment:
+
+```bash
+# Install package in editable mode
+pip install -e .
+
+# Or install dependencies from requirements.txt
+pip install -r requirements.txt
+```
+
+### 2. Configuration
+Data paths and analysis parameters are managed in `config/config.yaml`. Update this file before running the pipeline.
+
+### 3. Running the Pipeline
+You can execute the full data pipeline using the CLI:
+```bash
+# Run data preparation
+python src/main.py --task prep
+
+# Run analysis (WIP)
+python src/main.py --task analyze
+```
+
+Or use the `Makefile`:
+```bash
+make run-prep
+```
+
+### 4. Running with Docker 🐳
+This project is fully containerized.
+
+**Build the image:**
+```bash
+docker build -t sentiment-analysis:latest .
+# OR
+make docker-build
+```
+
+**Run the pipeline:**
+```bash
+# Run data preparation (volumes mounted for data persistence)
+make docker-run-prep
+```
+**Using Docker Compose:**
+```bash
+docker-compose up --build
+```
 
 ---
 
-## 🚀 Challenge Overview  
-Financial markets move rapidly in response to information. Understanding **how news sentiment affects short-term stock returns** is a core capability of quantitative trading firms.  
+This project explores how **financial news headlines influence stock market movements** using a combined workflow of **data engineering, sentiment analysis, and quantitative finance techniques**.
 
-This project simulates a real-world workflow used by analysts at **Nova Financial Solutions**, combining:  
-- Data Engineering (DE)  
-- Financial Analytics (FA)  
-- Machine Learning Engineering (MLE)  
-- Reproducible software practices (Git, CI/CD, notebooks, Python modules)  
+The goal is to build a **reproducible data pipeline** that:
+1. Extracts patterns from news headlines
+2. Computes sentiment scores
+3. Aligns news events with stock price movements
+4. Computes technical indicators
+5. Analyzes correlations and predictive relationships
+
+---
+
+## 🚀 Challenge Overview
+Financial markets move rapidly in response to information. Understanding **how news sentiment affects short-term stock returns** is a core capability of quantitative trading firms.
+
+This project simulates a real-world workflow used by analysts at **Nova Financial Solutions**, combining:
+- Data Engineering (DE)
+- Financial Analytics (FA)
+- Machine Learning Engineering (MLE)
+- Reproducible software practices (Git, CI/CD, notebooks, Python modules)
 
 The workload is intentionally intense — mirroring fast-paced financial analytics environments.
 
 ---
 
-## 🎯 Business Objective  
+## 🎯 Business Objective
 As a Data Analyst at Nova Financial Solutions, my mission is to determine:
 
-### **1. Sentiment → Price Movement Link**  
-Perform sentiment analysis on each headline and quantify the tone (positive/neutral/negative).  
+### **1. Sentiment → Price Movement Link**
+Perform sentiment analysis on each headline and quantify the tone (positive/neutral/negative).
 Understand if certain sentiments reliably predict price moves.
 
-### **2. Correlation Between News & Returns**  
-Determine whether news sentiment has impact on:  
-- same-day returns  
-- next-day returns  
-- multi-day returns  
-- volatility  
+### **2. Correlation Between News & Returns**
+Determine whether news sentiment has impact on:
+- same-day returns
+- next-day returns
+- multi-day returns
+- volatility
 - volume changes
 
-### **3. Investment Strategy Insights**  
-Use results to propose **data-backed trading insights**, such as:  
-- “Highly negative headlines predict higher short-term volatility”  
-- “Positive sentiment correlates with next-day gains for tech stocks"  
+### **3. Investment Strategy Insights**
+Use results to propose **data-backed trading insights**, such as:
+- “Highly negative headlines predict higher short-term volatility”
+- “Positive sentiment correlates with next-day gains for tech stocks"
 
 ---
 
-## 📚 Dataset Overview  
+## 📚 Dataset Overview
 
-### **Financial News + Price Integration Dataset (FNSPID)**  
-The dataset contains:  
+### **Financial News + Price Integration Dataset (FNSPID)**
+The dataset contains:
 
 | Column      | Description |
 |-------------|-------------|
@@ -60,16 +113,16 @@ The dataset contains:
 | **date** | UTC-4 timestamp of article publication |
 | **stock** | Stock ticker symbol (AAPL, TSLA, AMZN, etc.) |
 
-This dataset is enriched with **price data** containing:  
-- Open  
-- High  
-- Low  
-- Close  
-- Volume  
+This dataset is enriched with **price data** containing:
+- Open
+- High
+- Low
+- Close
+- Volume
 
 ---
 
-## 🗂 Folder Structure  
+## 🗂 Folder Structure
 
 ```bash
 ├── .github/workflows/unittests.yml # CI: Run tests
@@ -99,7 +152,7 @@ This dataset is enriched with **price data** containing:
 └── .gitignore
 ```
 
-## ⚙️ Environment Setup  
+## ⚙️ Environment Setup
 
 ### **1. Create Virtual Environment**
 ```bash
@@ -120,27 +173,27 @@ jupyter lab
 1. Descriptive Statistics
 
   - Headline length distributions
-  
+
   - Article counts per publisher
-  
+
   - News volume over time
-  
+
   - Publishing time-of-day patterns
 
 2. Text Analysis
 
   - TF-IDF keyword extraction
-  
+
   - Topic modeling (optional: LDA)
-  
+
   - Frequent financial event patterns (e.g. “price target”, “downgrade”, “Earnings beat”)
 
 3. Time Series News Trends
 
   - Publication spikes around earnings
-  
+
   - Daily vs intraday publication rates
-  
+
   - Publisher behavioural differences
 
 Outputs stored in:
@@ -155,9 +208,9 @@ A. Align News With Market Dates
 Rules:
 
   - If headline time < 09:30 → same trading day
-  
+
   - If headline time > 16:00 → next trading day
-  
+
   - If timezone unknown → use article date (daily frequency)
 
 B. Compute Returns
@@ -186,7 +239,7 @@ D. Merge With Sentiment
 For each (stock, date):
 
   1. Aggregate news sentiment (mean, median, count)
-  
+
   2. Join with price data
 
 
@@ -197,9 +250,9 @@ Functions in src/analysis.py include:
 Correlations
 
   - sentiment vs daily return
-  
+
   - sentiment vs next-day return
-  
+
   - sentiment vs volatility (rolling std)
 
   - sentiment vs volume
@@ -207,7 +260,7 @@ Correlations
 Hypothesis tests
 
   - T-tests comparing returns after positive vs negative sentiment
-  
+
   - Pearson / Spearman correlation
 
 Regression models:
@@ -217,9 +270,9 @@ return_next_1d ~ sentiment + RSI + prev_return + volume_change
 Visualizations
 
   - Scatterplots: sentiment vs next-day return
-  
+
   - Boxplots: sentiment groups (negative/neutral/positive)
-  
+
   - Price indicators vs sentiment patterns
 
 ## 📈 What This Project Produces
@@ -240,9 +293,9 @@ Visualizations
 Automated tests run using GitHub Actions:
 
   - Data cleaning tests
-  
+
   - Indicator accuracy tests
-  
+
   - Smoke tests for sentiment model
 
 Run locally:

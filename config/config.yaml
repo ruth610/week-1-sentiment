@@ -1,0 +1,12 @@
+data:
+  raw_path: "data/raw/raw_analyst_ratings.csv"
+  processed_path: "data/processed/cleaned_ratings.csv"
+  price_path: "data/raw/yfinance_data" # Placeholder
+
+analysis:
+  headline_length_threshold: 10
+  sentiment_model: "textblob" # Placeholder for future
+
+logging:
+  level: "INFO"
+  file: "logs/app.log"
