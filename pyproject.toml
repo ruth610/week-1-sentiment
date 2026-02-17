@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sentiment_analysis"
+version = "0.1.0"
+authors = [
+  { name="Data Analyst", email="analyst@nova-financial.com" },
+]
+description = "Financial news sentiment analysis pipeline"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "pandas<2.0.0",
+    "numpy<2.0.0",
+    "matplotlib",
+    "seaborn",
+    "scikit-learn",
+    "nltk",
+    "textblob",
+    "pandas-ta",
+    "pyyaml"
+]
+
+[project.scripts]
+sentiment-analysis = "src.main:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
