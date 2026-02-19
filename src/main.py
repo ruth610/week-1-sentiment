@@ -6,6 +6,7 @@ import sys
 
 from src.utils.logger import setup_logger
 from src.data_prep import load_data, clean_data, feature_engineering, save_data
+from src.model.train_model import ModelTrainer
 
 def load_config(config_path: str) -> dict:
     """
@@ -21,7 +22,7 @@ def load_config(config_path: str) -> dict:
 def main():
     parser = argparse.ArgumentParser(description="Sentiment Analysis Pipeline")
     parser.add_argument("--config", type=str, default="config/config.yaml", help="Path to config file")
-    parser.add_argument("--task", type=str, required=True, choices=["prep", "analyze", "full"], help="Task to perform")
+    parser.add_argument("--task", type=str, required=True, choices=["prep", "analyze", "full", "train"], help="Task to perform")
 
     args = parser.parse_args()
 
@@ -48,18 +49,21 @@ def main():
             df = load_data(raw_path)
             df = clean_data(df)
             df = feature_engineering(df)
-
-            # Ensure output directory exists
-            os.makedirs(os.path.dirname(processed_path), exist_ok=True)
             save_data(df, processed_path)
-
         except Exception as e:
-            logger.error(f"Data preparation failed: {e}")
+            logger.error(f"Data prep failed: {e}")
+            sys.exit(1)
+
+    if args.task == "train":
+        try:
+            trainer = ModelTrainer(config)
+            trainer.train()
+        except Exception as e:
+            logger.error(f"Training failed: {e}")
             sys.exit(1)
 
     if args.task in ["analyze", "full"]:
         logger.info("Running analysis... (Not fully implemented)")
-        # analytical functions would be called here
         pass
 
     logger.info("Pipeline completed successfully.")
