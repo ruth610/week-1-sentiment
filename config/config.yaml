@@ -5,7 +5,15 @@ data:
 
 analysis:
   headline_length_threshold: 10
-  sentiment_model: "textblob" # Placeholder for future
+  sentiment_model: "vader"
+  stocks: ["AAPL", "MSFT", "GOOG", "AMZN", "TSLA", "META", "NVDA"] # Added for default
+
+model:
+  type: "random_forest"
+  target_col: "Target"
+  save_path: "models/sentiment_model.pkl"
+  test_size: 0.2
+  random_state: 42
 
 logging:
   level: "INFO"
